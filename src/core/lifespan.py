@@ -8,10 +8,11 @@ from src.nbrb_api.api import NBRBApi
 
 async def on_app_startup(_: FastAPI) -> None:
     await init_db()
+    NBRBApi.init_http_session()
 
 
 async def on_app_shutdown(_: FastAPI) -> None:
-    await NBRBApi.HTTP_SESSION.close()
+    await NBRBApi.close_http_session()
 
 
 @asynccontextmanager

@@ -11,7 +11,15 @@ class NBRBApi:
     BEL_RUBLE_EXCHANGE_RATE = "/api/exrates/rates"
     BEL_RUBLE_DYNAMIC_RATE = "/api/exrates/rates/dynamics"
 
-    HTTP_SESSION = aiohttp.ClientSession(BASE_URL)
+    HTTP_SESSION: aiohttp.ClientSession
+
+    @classmethod
+    def init_http_session(cls) -> None:
+        cls.HTTP_SESSION = aiohttp.ClientSession(cls.BASE_URL)
+
+    @classmethod
+    async def close_http_session(cls) -> None:
+        await cls.HTTP_SESSION.close()
 
     @classmethod
     def get_rate_date(cls, api_date: str) -> date:
