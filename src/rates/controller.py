@@ -1,6 +1,7 @@
 from datetime import date
 from typing import List, Literal, Optional
 
+from aiohttp import ClientResponseError
 from fastapi import HTTPException
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -34,7 +35,12 @@ class RateController:
         if not rate:
             rate = RatePost()
         exchange_date = rate.date or date.today()
-        rates = await NBRBApi.get_rates(exchange_date)
+        try:
+            rates = await NBRBApi.get_rates(exchange_date)
+        except ClientResponseError as e:
+            raise HTTPException(
+                400, f"nbrb api answered with: {e.message}. Status code {e.status}"
+            )
         schemas = self.get_rate_schemas(rates)
         try:
             async with self._session.begin():

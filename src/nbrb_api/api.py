@@ -32,5 +32,6 @@ class NBRBApi:
         async with cls.HTTP_SESSION.get(
             cls.BEL_RUBLE_EXCHANGE_RATE, params=params
         ) as response:
+            response.raise_for_status()
             rates: List[RateDict] = await response.json()
         return rates
