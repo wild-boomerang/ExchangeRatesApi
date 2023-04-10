@@ -21,7 +21,7 @@ async def save_exchange_rates(
     return await controller.save_rates(rate)
 
 
-@rate_router.get("/", response_model=RateReturn)
+@rate_router.get("/{currency_code}", response_model=RateReturn)
 async def get_exchange_rate(
     currency_code: int,
     exchange_date: date = None,
