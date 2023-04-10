@@ -1,5 +1,8 @@
 # Exchange Rates API
 
+This project is an API that retrieves and displays exchange rates from the [API](https://www.nbrb.by/apihelp/exrates) 
+of the National Bank of the Republic of Belarus.
+
 The project is written with [FastAPI](https://fastapi.tiangolo.com/) and [SQLAlchemy](https://www.sqlalchemy.org/) in a
 fully asynchronous manner. [AIOHTTP](https://docs.aiohttp.org/en/stable/) is used for requests.
 
